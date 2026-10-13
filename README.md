@@ -39,10 +39,35 @@ Desktop does:
   contact card, or reply to them privately with the group message quoted.
 - **Settings:** your profile, notifications, privacy, the blocked list
   and themes.
-- **Forward** to as many chats as you like.
 
 The full list, with what's still missing, is
 [PARITY.md](https://github.com/mikesimone/Signal-Desktop/blob/main/contrib/backchannel/helper/PARITY.md).
+
+## Beyond Signal Desktop
+
+A running list of things Signal Desktop doesn't do, or limits, that
+Backchannel does. Each new one is added here when it ships; items newer than the latest
+release are marked _(next release)_.
+
+- **Any browser tab.** Signal runs on your server, always online, and you
+  use it from a tab in Rambox, Ferdium or any browser. No Signal Desktop
+  window on your PC.
+- **Notifications from the tab.** While the page is open, notifications
+  come from it, not from a second Signal window.
+- **Forward to any number of chats.** Signal forwards to at most five;
+  Backchannel lists every chat, most recent first, with no limit.
+- **One poll to many chats.** Signal can't forward a poll; Backchannel
+  sends each chat its own copy.
+- **Reply privately** to someone in a group: their message is quoted in
+  your 1:1 chat, and the two are linked both ways on the page. Signal
+  Desktop has no such option.
+- _(next release)_ **Sticker replies.** Signal has them built in but switched off;
+  Backchannel sends a sticker as a reply. Recipients see the quote once
+  their Signal app shows sticker replies.
+- _(next release)_ **Bold italic in one step**, from the format menu or bar. Signal needs
+  two.
+- _(next release)_ **Scheduled messages.** Signal Desktop has none. Backchannel sends them
+  from your server at the time you pick, even with your PC off.
 
 ## How it stays private
 
@@ -63,6 +88,7 @@ The full security design:
 ## Quick start
 
 You need:
+
 - An x86-64 Linux host with Docker and Compose. ARM hosts, such as a
   Raspberry Pi or an Apple Silicon Mac, are untested.
 - Several GB of free disk for the build.
@@ -140,6 +166,7 @@ Docker Desktop runs the same Linux container inside WSL 2.
 
    A folder on `C:` (`/mnt/c/...`) is much slower for the build, and it
    can't keep the Unix permissions Signal's profile needs.
+
 3. Docker Desktop forwards the ports to Windows. On that PC, the address
    from `screen.sh url` opens as is in any browser or in Rambox.
 
@@ -187,6 +214,7 @@ This repository is the front door: setup, releases and issues. The code is
 in the [Signal-Desktop fork](https://github.com/mikesimone/Signal-Desktop),
 because most features change both Signal Desktop's bridge and the page
 together:
+
 - The bridge is in `ts/externalClient`.
 - The page and helper are in `contrib/backchannel`.
 - The fork merges every Signal Desktop release.
