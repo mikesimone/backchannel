@@ -32,14 +32,39 @@ jobs:
       - name: Build
         run: docker compose build --progress=plain
 
-      - name: Start and check
+      - name: Start
         run: |
           docker compose up -d
-          sleep 60
-          docker compose ps
-          docker compose exec -T backchannel sh -c 'ls /data/.config/Signal/external-client/'
-          docker compose exec -T backchannel bash -c \
-            'import -window root /tmp/s.png && zbarimg -q --raw /tmp/s.png | cut -c1-12'
+          # Wait for the bridge socket, which Signal opens once it's up.
+          for i in $(seq 36); do
+            docker compose exec -T backchannel sh -c 'ls /data/.config/Signal/external-client/*.sock' && break
+            sleep 5
+          done
+
+      - name: Link QR code is on screen
+        run: |
+          # screen.sh qr is what the README has users run; it fails when no
+          # QR code decodes. Signal can take a while to show it.
+          for i in $(seq 36); do
+            if docker compose exec -T backchannel screen.sh qr > qr.txt 2> qr.err; then
+              echo "QR code after $((i * 5)) s"
+              exit 0
+            fi
+            sleep 5
+          done
+          cat qr.err
+          exit 1
+
+      - name: Screenshot
+        if: always()
+        run: docker compose exec -T backchannel screen.sh shot /data/screen.png || true
+
+      - name: Upload screenshot
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screen
+          path: /srv/backchannel/screen.png
 
       - name: Logs
         if: always()
