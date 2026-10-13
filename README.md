@@ -33,7 +33,7 @@ Desktop does:
   messages, typing indicators, and an unread line where you left off.
 - **Writing:** @mentions, bold, italic, strikethrough, monospace and
   spoilers, the full emoji picker with skin tones, pasting and dropping
-  images, files, and voice notes.
+  images, files, voice notes, and scheduled messages.
 - **Groups:** start chats and groups, add and remove members, admins, the
   group link, name, photo and permissions. Click someone's photo for their
   contact card, or reply to them privately with the group message quoted.
@@ -46,8 +46,8 @@ The full list, with what's still missing, is
 ## Beyond Signal Desktop
 
 A running list of things Signal Desktop doesn't do, or limits, that
-Backchannel does. Each new one is added here when it ships; items newer than the latest
-release are marked _(next release)_.
+Backchannel does. Each new one is added here when it ships; items newer
+than the latest release are marked _(next release)_.
 
 - **Any browser tab.** Signal runs on your server, always online, and you
   use it from a tab in Rambox, Ferdium or any browser. No Signal Desktop
@@ -61,12 +61,12 @@ release are marked _(next release)_.
 - **Reply privately** to someone in a group: their message is quoted in
   your 1:1 chat, and the two are linked both ways on the page. Signal
   Desktop has no such option.
-- _(next release)_ **Sticker replies.** Signal has them built in but switched off;
+- **Sticker replies.** Signal has them built in but switched off;
   Backchannel sends a sticker as a reply. Recipients see the quote once
   their Signal app shows sticker replies.
-- _(next release)_ **Bold italic in one step**, from the format menu or bar. Signal needs
+- **Bold italic in one step**, from the format menu or bar. Signal needs
   two.
-- _(next release)_ **Scheduled messages.** Signal Desktop has none. Backchannel sends them
+- **Scheduled messages.** Signal Desktop has none. Backchannel sends them
   from your server at the time you pick, even with your PC off.
 
 ## How it stays private
