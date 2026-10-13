@@ -1,0 +1,46 @@
+# Copyright 2026 Mike Simone
+# SPDX-License-Identifier: AGPL-3.0-only
+
+# Builds the image exactly as the README says (docker compose from the
+# pinned release) and checks that it starts and shows the link QR code.
+name: Build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and start
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Configure
+        run: |
+          sudo mkdir -p /srv/backchannel
+          sudo chown 1000:1000 /srv/backchannel
+          printf 'BACKCHANNEL_UID=1000\nBACKCHANNEL_DATA=/srv/backchannel\n' > .env
+
+      - name: Build
+        run: docker compose build --progress=plain
+
+      - name: Start and check
+        run: |
+          docker compose up -d
+          sleep 60
+          docker compose ps
+          docker compose exec -T backchannel sh -c 'ls /data/.config/Signal/external-client/'
+          docker compose exec -T backchannel bash -c \
+            'import -window root /tmp/s.png && zbarimg -q --raw /tmp/s.png | cut -c1-12'
+
+      - name: Logs
+        if: always()
+        run: docker compose logs --tail 80 || true

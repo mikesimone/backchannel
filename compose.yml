@@ -1,0 +1,33 @@
+# Copyright 2026 Mike Simone
+# SPDX-License-Identifier: AGPL-3.0-only
+
+# Run from this directory: docker compose up -d --build
+# Settings come from .env next to this file (copy .env.example).
+#
+# The image is built on your machine from a tagged release of the Signal
+# Desktop fork that carries Backchannel's bridge:
+# https://github.com/mikesimone/Signal-Desktop
+
+name: backchannel
+
+services:
+  backchannel:
+    build:
+      context: https://github.com/mikesimone/Signal-Desktop.git#${BACKCHANNEL_REF:-backchannel-v1.0}
+      dockerfile: contrib/backchannel/Dockerfile
+      args:
+        SIGNAL_UID: ${BACKCHANNEL_UID:-1000}
+    image: backchannel:latest
+    restart: unless-stopped
+    environment:
+      BACKCHANNEL_ORIGIN: ${BACKCHANNEL_ORIGIN:-}
+      SIGNAL_EXTRA_ARGS: ${SIGNAL_EXTRA_ARGS:-}
+    ports:
+      # Host loopback only: a reverse proxy (or ssh -L) puts the chat page
+      # in front of people, and VNC is for the one-time link and approval.
+      - '127.0.0.1:8083:8083'
+      - '127.0.0.1:5901:5900'
+    volumes:
+      - ${BACKCHANNEL_DATA:?set BACKCHANNEL_DATA in .env}:/data
+    # Chromium needs more shared memory than Docker's 64 MB default.
+    shm_size: 1gb
