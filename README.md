@@ -30,7 +30,8 @@ Desktop does:
   search across all your messages.
 - **Messages:** reactions (and who reacted), replies that jump to the
   original, edit and delete, polls, stickers, link previews, disappearing
-  messages, typing indicators, and an unread line where you left off.
+  messages, typing indicators, an unread line where you left off, and
+  each chat's photos, files, audio and links in All media.
 - **Writing:** @mentions, bold, italic, strikethrough, monospace and
   spoilers, the full emoji picker with skin tones, pasting and dropping
   images, files, voice notes, and scheduled messages.
@@ -68,6 +69,9 @@ than the latest release are marked _(next release)_.
   two.
 - **Scheduled messages.** Signal Desktop has none. Backchannel sends them
   from your server at the time you pick, even with your PC off.
+- _(next release)_ **Edit and tag when forwarding.** Signal lets you edit a forward's text;
+  Backchannel also lets you @mention people. Each chat gets a real tag
+  where that person is in the group, and plain "@Name" text elsewhere.
 
 ## How it stays private
 
