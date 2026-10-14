@@ -72,7 +72,7 @@ than the latest release are marked _(next release)_.
 - **Edit and tag when forwarding.** Signal lets you edit a forward's text;
   Backchannel also lets you @mention people. Each chat gets a real tag
   where that person is in the group, and plain "@Name" text elsewhere.
-- _(next release)_ **Markdown shortcuts and SMS-ready copies.** Type \*bold\*,
+- **Markdown shortcuts and SMS-ready copies.** Type \*bold\*,
   \_italic\_, \_\*bold italic\*\_, \~strikethrough\~ or \`monospace\` and the
   style applies as you type (Backspace right after undoes it). Copying
   styled text puts Unicode bold, italic and strikethrough letters on the
