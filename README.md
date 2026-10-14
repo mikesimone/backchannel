@@ -69,7 +69,7 @@ than the latest release are marked _(next release)_.
   two.
 - **Scheduled messages.** Signal Desktop has none. Backchannel sends them
   from your server at the time you pick, even with your PC off.
-- _(next release)_ **Edit and tag when forwarding.** Signal lets you edit a forward's text;
+- **Edit and tag when forwarding.** Signal lets you edit a forward's text;
   Backchannel also lets you @mention people. Each chat gets a real tag
   where that person is in the group, and plain "@Name" text elsewhere.
 
