@@ -1,5 +1,7 @@
 # Backchannel
 
+_Signal for people who actually have friends._
+
 **Your Signal chats in a browser tab.** Backchannel runs Signal Desktop on
 your own server and gives you a fast web page for it, so you can use
 Signal in Rambox, Ferdium, or any browser, on any computer, without
@@ -74,7 +76,8 @@ than the latest release are marked _(next release)_.
   where that person is in the group, and plain "@Name" text elsewhere.
 - **Markdown shortcuts and SMS-ready copies.** Type \*bold\*,
   \_italic\_, \_\*bold italic\*\_, \~strikethrough\~ or \`monospace\` and the
-  style applies as you type (Backspace right after undoes it). Copying
+  style applies as you type (Backspace right after undoes it), or as you
+  paste text that has them. Copying
   styled text puts Unicode bold, italic and strikethrough letters on the
   clipboard, so the styles survive a paste into an SMS or anywhere else,
   and pasting such text into Backchannel turns it back into Signal's styles.
