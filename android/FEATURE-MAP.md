@@ -17,7 +17,7 @@ Status: **native** (Signal/Molly already does it), **port** (we build it),
 | # | Backchannel feature | Android today | Status | How |
 |---|---------------------|---------------|--------|-----|
 | P1 | Name, icon, tagline, "not made by Signal" | Molly branding | port | M1 in [README.md](README.md): build variables, launcher icon, About screen. |
-| P2 | Notifications without Google or an open port | Molly WebSocket | native | Molly's kept-open connection. Ship with it on and prompt for the battery exemption on first run. |
+| P2 | Notifications with no open port | Molly: Google push, else kept-open connection | native | Molly's default. Google push when Google Play is present, kept-open connection otherwise. |
 | P3 | Forward to any number of chats | Molly sets `RemoteConfig.shareSelectionLimit = NO_LIMITS` | native | Verify on device. Separate cap: at most 32 selected messages per forward (`MenuState.MAX_FORWARDABLE_COUNT`); leave it. |
 | P4 | One poll to many chats | Forward is hidden for polls (`MenuState`: `!hasPoll`) | port | Allow forward on a poll; on send, create a fresh poll per destination with the same question/options via `ConversationRepository.sendPoll`, as the page does. |
 | P5 | Reply privately to someone in a group | Not in Android | port | Long-press menu item on others' group messages: open the 1:1 chat with that message quoted. Store the group↔1:1 link locally (Backchannel's `privateReplies.mjs` keeps it server-side) so both bubbles show the link. |

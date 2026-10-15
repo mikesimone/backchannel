@@ -16,7 +16,7 @@ Six is not involved and needs no open port.
 | # | Decision | Why |
 |---|----------|-----|
 | A1 | **Fork Molly (`mollyim/mollyim-android`), not Signal-Android directly.** | Molly is Signal-Android plus exactly the plumbing we'd otherwise write: no Google Play Services (`core-gms/` FOSS replacements), notifications over a kept-open WebSocket or UnifiedPush, a de-branding pipeline (`mollyify` strings, `CI_APP_TITLE` / `CI_PACKAGE_ID` / `CI_APP_FILENAME` build overrides), reproducible Docker builds, and a sync workflow that tracks Signal's releases. It's AGPL-3.0, so our fork is too. Molly already removes Signal's 5-chat forward limit (`RemoteConfig.shareSelectionLimit = NO_LIMITS`). |
-| A2 | **Notifications: kept-open WebSocket.** UnifiedPush stays available but off. | The WebSocket needs no server at all: the phone holds a connection to Signal. UnifiedPush needs a MollySocket server plus a distributor the phone can reach, which means either a public service or opening Six, and Mike rejected opening Six (2026-10-14). Molly also doesn't support UnifiedPush on linked devices. The cost is battery: the app must be exempt from battery optimization. |
+| A2 | **Notifications: Google push, falling back to a kept-open connection** (Mike, 2026-10-15 10:03 PT). UnifiedPush stays available but off. | Mike wants as much as possible running on Signal's servers; Backchannel only makes the UI friendlier. Molly's open-source push client (`core-gms/cloud-messaging`) registers with Signal's push account through Google Play on the phone; without Google Play it holds its own connection to Signal. Neither touches Six. |
 | A3 | **Name "Backchannel", package `net.mikesimone.backchannel`.** | Own name, no Signal trademark, installs beside Signal and Molly without clashing. Set through Molly's existing `CI_APP_TITLE`, `CI_APP_FILENAME`, `CI_PACKAGE_ID` build variables plus our own launcher icon. |
 | A4 | **Build on GitHub Actions in the fork**, using Molly's `release.yml` and Docker build unchanged. | Molly's build wants ~12 GB of Gradle heap (`org.gradle.jvmargs=-Xmx12g`); WIN11 is too small and Six's headroom is unknown. Public-repo runners are free. Fallback: `reproducible-builds/docker compose up --build` on Six. |
 | A5 | **Signed with Mike's own key**, held only as Actions secrets (`SECRET_KEYSTORE`, `SECRET_KEYSTORE_ALIAS`, `SECRET_KEYSTORE_PASSWORD`). Never committed. | Android only installs updates signed by the same key, so the key must be stable and backed up. Mike generates it on his own machine (command below). |
@@ -24,17 +24,20 @@ Six is not involved and needs no open port.
 | A7 | **Stay current automatically.** A scheduled workflow merges each new Molly release tag into our `main`, builds, and drafts a release. A merge conflict opens an issue instead. | Same standing rule as Desktop: keep every feature Signal adds. Molly follows Signal every two weeks. |
 | A8 | **Our changes stay small and marked.** Every edit to Molly/Signal code carries a `// BACKCHANNEL:` comment, and new code goes under `app/src/main/java/net/mikesimone/backchannel/`. | Keeps upstream merges cheap, the same way Molly marks its own edits `// MOLLY:`. |
 
-### Open: main app or linked device
+### Sign-up: both
 
-Molly can run either as the phone's main Signal app (replacing Signal,
-moved over with a Signal backup) or as a linked device beside Signal.
-Default until Mike says otherwise: **linked device first** for testing,
-since it can't disturb his Signal account. Switching to main later is a
-backup restore.
+Both ways stay (Mike, 2026-10-15 09:58 PT): register as the phone's main
+Signal app (or restore a Signal backup), or link to an existing Signal
+account as a device. Molly already offers both on its first screen.
+
+### No upstream PRs to Molly
+
+Mike, 2026-10-15 09:57 PT: Molly's direction differs from ours, so our
+features stay in the fork.
 
 ## Steps
 
-1. **Fork.** Mike runs (GitHub CLI, any machine):
+1. **Fork.** Done 2026-10-15: `mikesimone/backchannel-android`. Mike ran:
 
    ```sh
    gh repo fork mollyim/mollyim-android --fork-name backchannel-android --clone=false
