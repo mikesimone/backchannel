@@ -81,9 +81,11 @@ than the latest release are marked _(next release)_.
   styled text puts Unicode bold, italic and strikethrough letters on the
   clipboard, so the styles survive a paste into an SMS or anywhere else,
   and pasting such text into Backchannel turns it back into Signal's styles.
-- **Pick each chat's photo.** Signal shows either your phone's contact photos
-  or people's Signal profile photos, for every chat at once. Backchannel lets
-  you pick per chat, in its details.
+- **Your contact photos come first.** The photo you gave someone in your
+  phone's contacts always wins over their Signal profile photo, unless you
+  pick the profile photo for that chat in its details. Backchannel asks your
+  phone for its contacts every day and before a new chat opens, so new
+  contact photos show up; Signal Desktop asks only when it's linked.
 
 ## How it stays private
 
