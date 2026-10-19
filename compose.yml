@@ -13,7 +13,7 @@ name: backchannel
 services:
   backchannel:
     build:
-      context: https://github.com/mikesimone/Signal-Desktop.git#${BACKCHANNEL_REF:-backchannel-v1.5}
+      context: https://github.com/mikesimone/Signal-Desktop.git#${BACKCHANNEL_REF:-backchannel-v1.6}
       dockerfile: contrib/backchannel/Dockerfile
       args:
         SIGNAL_UID: ${BACKCHANNEL_UID:-1000}
